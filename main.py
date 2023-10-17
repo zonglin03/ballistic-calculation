@@ -15,7 +15,29 @@ H0  =   7000
 theta0  =   0
 phi0    =   0
 alpha0  =   0
+
+
+# 导弹状态定义
+class statu():
+    time = 0
+    mass = 0
+    # 位置
+    x = 0
+    y = 0
+    z = 0
+    # 速度
+    vx = 0
+    vy = 0
+    vz = 0
+    # 欧拉角
+    theta = 0
+    phi = 0
+    alpha = 0
+    # 角加速度
+    theta_a =0
+    # 舵偏角
     
+
 
 # 大气参数
 def air (High):

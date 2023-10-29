@@ -19,11 +19,11 @@ L_ref   =   2.5
 # 放大系数
 K_phi = -0.6
 K_phi_dot= 0.5 * K_phi
-K_q = 3
+K_q = 2
 
 
 # 仿真时间步
-timestep = 0.001
+timestep = 0.01
 
 # 导弹状态定义
 class statu():
@@ -73,7 +73,7 @@ class statu():
         else:
             P = 2000
         
-        self.V = before.V + (P*np.cos(self.alpha*3.14159625/180) - X - self.mass*9.8*np.sin(before.theta)) /self.mass*timestep
+        self.V = before.V + (P*np.cos(before.alpha*3.14159625/180) - X - self.mass*9.8*np.sin(before.theta)) /self.mass*timestep
         self.theta = before.theta + (P*np.sin(self.alpha*3.14159625/180) + Y - self.mass*9.8*np.cos(before.theta)) /self.mass/self.V*timestep
 
     # 比例导引法，给定目标位置
@@ -83,17 +83,17 @@ class statu():
         self.X = before.X + before.V * np.cos(before.theta) * timestep
         self.H = before.H + before.V * np.sin(before.theta) * timestep
         self.mass = before.mass 
+        
         self.r = np.sqrt((self.X - Xm)*(self.X - Xm) + (self.H - Ym)*(self.H - Ym))
         
-        self.q = np.arctan(( Ym - self.H )/(Xm - self.X))
-        self.dq = - before.V * np.sin(before.theta - self.q)/ self.r
+        self.dq = - before.V * np.sin(before.theta - np.arctan(( self.H - Ym)/(self.X - Xm)))/ self.r
 
         self.theta = before.theta + K_q * self.dq * timestep
         
         P = 0
         
 
-        self.alpha = (self.mass* before.V * K_q * self.dq + self.mass * 9.8 *np.cos(self.theta))/(P +  (0.25 + 0.05/0.24) * 0.5 * air(self.H) * before.V * before.V * L_ref) /3.14159*180
+        self.alpha = (self.mass* before.V * K_q * self.dq + self.mass * 9.8 * np.cos(self.theta))/(P +  (0.25 + 0.05/0.24) * 0.5 * air(self.H) * before.V * before.V * S_ref) /3.14159*180
 
         self.deltaz = self.alpha / 0.24
         
@@ -104,8 +104,8 @@ class statu():
 
         self.alpha =  0.24 *self.deltaz
         
-        X = (0.005 * before.alpha * before.alpha + 0.2) * 0.5 * air(self.H) * before.V * before.V * S_ref
-        self.V = before.V + (P*np.cos(self.alpha*3.14159625/180) - X - self.mass*9.8*np.sin(before.theta)) /self.mass*timestep
+        X = (0.005 * self.alpha * self.alpha + 0.2) * 0.5 * air(self.H) * before.V * before.V * S_ref
+        self.V = before.V + (P*np.cos(before.alpha*3.14159625/180) - X - self.mass*9.8*np.sin(before.theta)) /self.mass*timestep
     
 # 大气参数
 def air (High):
@@ -123,7 +123,8 @@ def High_goal(X):
         return 3050
     else:
         return 0
-    
+
+# 飞行方案的时间导数
 def High_goal_dot(X):
     if X <= 9100:
         return -2000 * 0.000314 * np.sin(0.000314 * 1.1 * X)
@@ -143,62 +144,77 @@ X_goal = np.arange(0,24000,10)
 H_goal = [High_goal(i) for i in X_goal]
 plt.plot(X_goal,H_goal, 'b--', alpha=0.5, linewidth=1, label='飞行方案高度')
 
+# 第一阶段
 while statu_n[-1].X < 9100:
     statu_n.append(statu(statu_n[-1].Time + timestep))
     statu_n[-1].Euler(statu_n[-2],0)
     #print(statu_n[-1].alpha)
 
+# 第二阶段
 while statu_n[-1].X <= 24000:
     statu_n.append(statu(statu_n[-1].Time + timestep))
     statu_n[-1].Euler(statu_n[-2],0.46)
     #print(statu_n[-1].theta)
 
-
-statu_n[-1].Euler2(statu_n[-2],30000,-30000)
+# 第三阶段
 while statu_n[-1].X <= 30000 and statu_n[-1].H > 0:
     statu_n.append(statu(statu_n[-1].Time + timestep))
     statu_n[-1].Euler2(statu_n[-2],30000,0)
     #print(statu_n[-1].V)
 
-
+# 飞行高度绘图
 X_data = [n.X for n in statu_n]
 H_data = [n.H for n in statu_n]
 plt.plot(X_data,H_data, 'r-.', alpha=0.5, linewidth=1, label='实际飞行高度')
-
-# 飞行高度绘图
+plt.title("弹道铅垂平面轨迹")
 plt.legend()  #显示上面的label
-plt.xlabel('X') #x_label
-plt.ylabel('H')#y_label
+plt.xlabel('X(m)') #x_label
+plt.ylabel('H(m)')#y_label
 plt.ylim(0,8000)
 plt.xlim(0,30000) #仅设置y轴坐标范围
+plt.savefig('code/飞行轨迹.png', dpi=300)
+plt.clf()
 
-
-plt.figure(2)
 T_data = [n.Time for n in statu_n]
 deltaz_data = [n.deltaz for n in statu_n]
 plt.plot(T_data,deltaz_data, 'r-.', alpha=0.5, linewidth=1, label='舵偏角$\delta z$')
+plt.title("飞行方案舵偏角")
 plt.legend()  #显示上面的label
 plt.xlabel('Time(s)') #x_label
 plt.ylabel('$\delta z$')#y_label
 plt.ylim(-50,50)
 plt.xlim(0,200)
-"""
-plt.figure(3)
-M_data = [n.mass for n in statu_n]
-plt.plot(T_data,M_data, 'r-.', alpha=0.5, linewidth=1, label='实际飞行速度V')
+plt.savefig('code/飞行舵偏角.png', dpi=300)
+plt.clf()
+
+plt.plot(T_data,H_data, 'r-.', alpha=0.5, linewidth=1, label='实际飞行速度V')
+plt.title("飞行高度的时间变化曲线")
 plt.legend()  #显示上面的label
 plt.xlabel('Time(s)') #x_label
-plt.ylabel('速度V')#y_label
-plt.ylim(250,350)
+plt.ylabel('H(m)')#y_label
+plt.ylim(0,7000)
 plt.xlim(0,200)
-"""
-plt.figure(4)
+plt.savefig('code/飞行高度.png', dpi=300)
+plt.clf()
+
 V_data = [n.V for n in statu_n]
 plt.plot(T_data,V_data, 'r-.', alpha=0.5, linewidth=1, label='实际飞行速度V')
+plt.title("飞行速度的时间变化曲线")
 plt.legend()  #显示上面的label
 plt.xlabel('Time(s)') #x_label
 plt.ylabel('速度V')#y_label
 plt.ylim(100,250)
 plt.xlim(0,200)
+plt.savefig('code/飞行速度.png', dpi=300)
+plt.clf()
 
-plt.show()
+theta_data = [n.theta*180/3.14159 for n in statu_n]
+plt.plot(T_data,theta_data, 'r-.', alpha=0.5, linewidth=1, label=r'舵偏角$\theta$')
+plt.title("飞行方案弹道倾角")
+plt.legend()  #显示上面的label
+plt.xlabel('Time(s)') #x_label
+plt.ylabel(r'$\theta$')#y_label
+plt.ylim(-50,50)
+plt.xlim(0,200)
+plt.savefig('code/飞行弹道倾角.png', dpi=300)
+plt.clf()

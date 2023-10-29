@@ -168,14 +168,14 @@
 \begin{align}
     \begin{cases}
         \frac{\mathrm{d}V}{\mathrm{d}t}=\frac{P\cos\alpha-X}{m}-g\sin\theta\hfill                             \\
-        \frac{\mathrm{d}\theta}{\mathrm{d}t}=\frac{P\sin\alpha+Y}{m}-\frac{g\cos\theta}{V}\hfill                      \\
+        \frac{\mathrm{d}\theta}{\mathrm{d}t}=\frac{P\sin\alpha+Y}{m}-\frac{g\cos\theta}{V}\hfill              \\
         \frac{\mathrm{d}x}{\mathrm{d}t}=V\cos\theta \hfill                                                    \\
         \frac{dy}{dt}=V\sin\theta \hfill                                                                      \\
         \frac{dm}{dt}=-m_{s} \hfill                                                                           \\
         \alpha_b=-\frac{m_{z}^{\delta_z}}{m_{z}^{\alpha}}\delta_{zb} \hfill                                   \\
         \delta_z = k_\varphi \left(H-H^{*}\right) +\dot{k}_{\varphi} \left(\dot{H} -\dot{H}^{*}\right) \hfill \\
         H^{*}=2000\times \cos\left(0.000314\times1.1\times x\right)+5000\hfill                                \\
-        Y=\left(0.25\alpha+0.05\delta_{z}\right)\times \frac{1}{2}\rho V^{2} \times S_{ref}\\
+        Y=\left(0.25\alpha+0.05\delta_{z}\right)\times \frac{1}{2}\rho V^{2} \times S_{ref}                   \\
         X=\left(0.2+0.005\alpha^2\right)\times \frac{1}{2}\rho V^{2} \times S_{ref}
     \end{cases}
 \end{align}
@@ -205,8 +205,8 @@
 
 \begin{align}
     \begin{cases}
-        r\frac{dq}{dt}=V_{m}\times\sin\eta\:-V_{T}\sin\eta_{T}  \\
-        \tan q=\frac{y_T-y_m}{x_T-x_m}    \\
+        r\frac{dq}{dt}=V_{m}\times\sin\eta\:-V_{T}\sin\eta_{T} \\
+        \tan q=\frac{y_T-y_m}{x_T-x_m}                         \\
         \frac{dq}{dt} =\frac{-V_m\sin(\theta-q)}r
     \end{cases}
 \end{align}
@@ -248,7 +248,48 @@
     \end{cases}
 \end{align}
 
+补充约束条件
+\begin{align}
+    \begin{cases}
+        \frac{dV}{dt}=\frac{P\cos\alpha-X}{m}-g\sin\theta                                                         \\
+        \frac{d\theta}{dt}=\frac{-kV\sin(\theta-\arctan{\frac{y_{T}-y_{m}}{x_{T}-x_{m}}})}{r}                     \\
+        \frac{dx}{dt}=V\cos\theta                                                                                 \\
+        {\frac{dy}{dt}}=V\sin\theta                                                                               \\
+        {\frac{dm}{dt}}=-m_s                                                                                      \\
+        \alpha=\frac{mV\dot{\theta}+mg\cos\theta}{P+C_{y}^{\alpha}qS_{ref}+C_{y}^{\delta_{z}}qS_{ref}(0.1/0.024)} \\
+        \alpha=-\frac{m_{z}^{\delta_z}}{m_{z}^{\alpha}}\delta_{z} \\
+        \left|\delta_{z} \right|\leq 30^{\circ}
+    \end{cases}
+\end{align}
 
+
+\section*{\zihao{-4} 三、仿真结果}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=130mm]{code/飞行轨迹.png}
+    \caption{导弹飞行轨迹图}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=130mm]{code/飞行高度.png}
+    \caption{导弹飞行高度的时间曲线图}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=130mm]{code/飞行速度.png}
+    \caption{导弹飞行速度的时间曲线图}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=130mm]{code/飞行舵偏角.png}
+    \caption{导弹飞行舵偏角的时间曲线图}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=130mm]{code/飞行弹道倾角.png}
+    \caption{导弹飞行弹道倾角的时间曲线图}
+\end{figure}
 
 
 \clearpage
@@ -258,12 +299,7 @@
     label       =   {main.py}
 ]{./code/main.py}
 
-\clearpage
 
-\lstinputlisting[
-    style       =   Matlab-editor,
-    caption     =   {\bf work.tex},
-    label       =   {work.tex}
-]{work.tex}
+
 
 \end{document}

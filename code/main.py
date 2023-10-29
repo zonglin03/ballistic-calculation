@@ -19,7 +19,7 @@ L_ref   =   2.5
 # 放大系数
 K_phi = -0.6
 K_phi_dot= 0.5 * K_phi
-K_q = 5
+K_q = 3
 
 
 # 仿真时间步

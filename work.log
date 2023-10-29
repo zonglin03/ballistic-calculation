@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.4)  29 OCT 2023 14:19
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.4)  29 OCT 2023 15:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -601,15 +601,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
 [3]
-Overfull \hbox (11.44604pt too wide) detected at line 319
-[]
- []
-
-
-Overfull \hbox (31.36472pt too wide) detected at line 333
-[]
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -617,19 +608,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[4]
-Overfull \hbox (31.36472pt too wide) detected at line 388
-[]
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.64723pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.64723pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
-
-[5] (e:/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[4] (e:/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) (./code/main.py
 
@@ -639,9 +618,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[6
+[5
 
 ]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[6]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -657,7 +644,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[8]
+[8])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -665,7 +652,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[9])
+[9] (./work.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -673,15 +660,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[10] (./work.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.64723pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.64723pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
-
-[11
+[10
 
 ]
 
@@ -691,7 +670,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
+[11]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
 [12]
+Overfull \hbox (119.16153pt too wide) in paragraph at lines 159--160
+[][] 
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -700,7 +691,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
 [13]
-Overfull \hbox (119.16153pt too wide) in paragraph at lines 160--161
+Overfull \hbox (155.1619pt too wide) in paragraph at lines 160--161
+[][] 
+ []
+
+
+Overfull \hbox (119.16153pt too wide) in paragraph at lines 173--174
+[][] 
+ []
+
+
+Overfull \hbox (155.1619pt too wide) in paragraph at lines 174--175
 [][] 
  []
 
@@ -712,7 +713,40 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
 [14]
-Overfull \hbox (155.1619pt too wide) in paragraph at lines 161--162
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[15]
+Overfull \hbox (169.56204pt too wide) in paragraph at lines 241--242
+[][] 
+ []
+
+
+Overfull \hbox (155.1619pt too wide) in paragraph at lines 242--243
+[][] 
+ []
+
+
+Overfull \hbox (169.56204pt too wide) in paragraph at lines 243--244
+[][] 
+ []
+
+
+Overfull \hbox (140.76175pt too wide) in paragraph at lines 244--245
+[][] 
+ []
+
+
+Overfull \hbox (75.96109pt too wide) in paragraph at lines 245--246
+[][] 
+ []
+
+
+Overfull \hbox (61.56094pt too wide) in paragraph at lines 246--247
 [][] 
  []
 
@@ -723,55 +757,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[15]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.64723pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.64723pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
-
-[16]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.64723pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.64723pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
-
-[17]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.64723pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.64723pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
-
-[18]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.64723pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.64723pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
-
-[19]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.64723pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.64723pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
-
-[20]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.64723pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.64723pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
-
-[21])
+[16])
 
 Package caption Warning: Unused \captionsetup[table] on input line 27.
 See the caption package documentation for explanation.
@@ -787,18 +773,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[22] (./work.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[17] (./work.aux) ) 
 Here is how much of TeX's memory you used:
- 13622 strings out of 476179
- 316933 string characters out of 5815278
+ 13561 strings out of 476179
+ 315867 string characters out of 5815278
  1171817 words of memory out of 5000000
- 34182 multiletter control sequences out of 15000+600000
+ 34121 multiletter control sequences out of 15000+600000
  474647 words of font info for 84 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 89i,21n,97p,1278b,2038s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,17n,97p,1278b,2038s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on work.pdf (22 pages).
+Output written on work.pdf (17 pages).

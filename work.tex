@@ -151,17 +151,32 @@
 \noindent {\heiti 1.$x<24000m$的飞行方案：}
 
 基于“瞬时平衡”假设，将包含20个方程的导弹运动方程组简化为铅垂平面内的质心运动方程组。
-
 \begin{align}
     \begin{cases}
-        m\frac{\mathrm{d}V}{\mathrm{d}t}=P\cos\alpha _{b}-X_{b}-mg\sin\theta\hfill                            \\
-        mV\frac{\mathrm{d}\theta}{\mathrm{d}t}=P\sin\alpha _{b}+Y_{b}-mg\cos\theta\hfill                      \\
+        m\frac{\mathrm{d}V}{\mathrm{d}t}=P\cos\alpha-X-mg\sin\theta\hfill                                     \\
+        mV\frac{\mathrm{d}\theta}{\mathrm{d}t}=P\sin\alpha+Y-mg\cos\theta\hfill                               \\
         \frac{\mathrm{d}x}{\mathrm{d}t}=V\cos\theta \hfill                                                    \\
         \frac{dy}{dt}=V\sin\theta \hfill                                                                      \\
         \frac{dm}{dt}=-m_{s} \hfill                                                                           \\
         \alpha_b=-\frac{m_{z}^{\delta_z}}{m_{z}^{\alpha}}\delta_{zb} \hfill                                   \\
         \delta_z = k_\varphi \left(H-H^{*}\right) +\dot{k}_{\varphi} \left(\dot{H} -\dot{H}^{*}\right) \hfill \\
         H^{*}=2000\times \cos\left(0.000314\times1.1\times x\right)+5000\hfill
+    \end{cases}
+\end{align}
+
+代入各物理量定义式：
+\begin{align}
+    \begin{cases}
+        \frac{\mathrm{d}V}{\mathrm{d}t}=\frac{P\cos\alpha-X}{m}-g\sin\theta\hfill                             \\
+        \frac{\mathrm{d}\theta}{\mathrm{d}t}=\frac{P\sin\alpha+Y}{m}-\frac{g\cos\theta}{V}\hfill                      \\
+        \frac{\mathrm{d}x}{\mathrm{d}t}=V\cos\theta \hfill                                                    \\
+        \frac{dy}{dt}=V\sin\theta \hfill                                                                      \\
+        \frac{dm}{dt}=-m_{s} \hfill                                                                           \\
+        \alpha_b=-\frac{m_{z}^{\delta_z}}{m_{z}^{\alpha}}\delta_{zb} \hfill                                   \\
+        \delta_z = k_\varphi \left(H-H^{*}\right) +\dot{k}_{\varphi} \left(\dot{H} -\dot{H}^{*}\right) \hfill \\
+        H^{*}=2000\times \cos\left(0.000314\times1.1\times x\right)+5000\hfill                                \\
+        Y=\left(0.25\alpha+0.05\delta_{z}\right)\times \frac{1}{2}\rho V^{2} \times S_{ref}\\
+        X=\left(0.2+0.005\alpha^2\right)\times \frac{1}{2}\rho V^{2} \times S_{ref}
     \end{cases}
 \end{align}
 
@@ -190,9 +205,9 @@
 
 \begin{align}
     \begin{cases}
-        r\frac{dq}{dt}=V_{m}\times\sin\eta\:-V_{T}\sin\eta_{T}                                                 \\
-        \begin{aligned}\tan q&=\frac{y_T-y_m}{x_T-x_m}\\
-        \frac{dq}{dt}&=\frac{-V_m\sin(\theta-q)}r\end{aligned}
+        r\frac{dq}{dt}=V_{m}\times\sin\eta\:-V_{T}\sin\eta_{T}  \\
+        \tan q=\frac{y_T-y_m}{x_T-x_m}    \\
+        \frac{dq}{dt} =\frac{-V_m\sin(\theta-q)}r
     \end{cases}
 \end{align}
 
@@ -205,7 +220,7 @@
 \begin{align}
     mV_{m}k\dot{q}=P\alpha+Y^{\alpha}\alpha+Y^{\delta_{z}}\delta_{z}-mg\cos\theta
 \end{align}
-    
+
 由于瞬时平衡$m_z=0$, 可得
 \begin{align}
     -0.1\alpha+0.024\delta_{\tilde{z}}=0\Rightarrow\delta_{\tilde{z}}=0.1\alpha/0.024
@@ -213,230 +228,27 @@
 
 代入，可得
 \begin{align}
-    \alpha=\frac{mV_{m}k\dot{q}+mg\cos\theta}{P+Y^{\alpha}+Y^{\delta_{z}}(0.1/0.024)}\Rightarrow\frac{mV_{m}k\dot{q}+mg\cos\theta}{P+C_{y}^{\alpha}qL_{ref}+C_{y}^{\delta_{z}}qL_{ref}(0.1/0.024)}
+    \alpha=\frac{mV_{m}k\dot{q}+mg\cos\theta}{P+Y^{\alpha}+Y^{\delta_{z}}(0.1/0.024)}\Rightarrow\frac{mV_{m}k\dot{q}+mg\cos\theta}{P+C_{y}^{\alpha}qS_{ref}+C_{y}^{\delta_{z}}qS_{ref}(0.1/0.024)}
 \end{align}
-    
+
 
 最后得到弹道方程为
 
 \begin{align}
     \begin{cases}
-        \frac{dV}{dt}=\frac{P\cos\alpha-X}{m}-g\sin\theta  \\
-        \alpha=\frac{mVk\dot{q}+mg\cos\theta}{P+C_{y}^{\alpha}qL_{ref}+C_{y}^{\delta_{z}}qL_{ref}(0.1/0.024)} \\
-        \frac{dx}{dt}=V\cos\theta  \\
-        {\frac{dy}{dt}}=V\sin\theta  \\
-        \dot{\theta}^{*}=k\dot{q} \\
-        \dot{\theta}^{*}=\dot{\theta} \\
-        \tan q=\frac{y_{T}-y_{m}}{x_{T}-x_{m}} \\
-        \frac{dq}{dt}=\frac{-V\sin(\theta-q)}{r} \\
+        \frac{dV}{dt}=\frac{P\cos\alpha-X}{m}-g\sin\theta                                                     \\
+        \alpha=\frac{mVk\dot{q}+mg\cos\theta}{P+C_{y}^{\alpha}qS_{ref}+C_{y}^{\delta_{z}}qS_{ref}(0.1/0.024)} \\
+        \frac{dx}{dt}=V\cos\theta                                                                             \\
+        {\frac{dy}{dt}}=V\sin\theta                                                                           \\
+        \dot{\theta}^{*}=k\dot{q}                                                                             \\
+        \dot{\theta}^{*}=\dot{\theta}                                                                         \\
+        \tan q=\frac{y_{T}-y_{m}}{x_{T}-x_{m}}                                                                \\
+        \frac{dq}{dt}=\frac{-V\sin(\theta-q)}{r}                                                              \\
         \delta_{z}=0.1\alpha/0.024
     \end{cases}
 \end{align}
 
-推力{\bf{P}}在弹体坐标系$Ox_{1}y_{1}z_{2}$中的分量用$P_{x1}$、$P_{y1}$、$P_{z1}$表示，则根据题目信息可以得到
-\begin{align}
-    \begin{cases}
-        \frac{P_{y1}}{P_{x1}}=\tan{\left( - 30^\circ\right)} \\
-        \frac{P_{y1}}{P_{z1}}=\tan{45^\circ}
-        \\
-        P_{x1}^2 + P_{y1}^2 + P_{z1}^2 = P
-    \end{cases}
-\end{align}
 
-带入$\vec{P}=50000N$求得推力大小：
-\begin{align}
-    \begin{pmatrix}
-        P_{x1} \\
-        P_{y1} \\
-        P_{z1}
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-        38730  \\
-        -22361 \\
-        -22361
-    \end{pmatrix}
-\end{align}
-
-\noindent {\bf (1) 按照$\psi \rightarrow \varphi \rightarrow \gamma$的顺序转换}
-
-从地面坐标系$Axyz$转换为弹体坐标系$Ox_{1}y_{1}z_{2}$的坐标变换矩阵为
-\begin{align}
-    L \left(\psi , \varphi , \gamma\right)
-    =
-    L_{x} \left(\gamma\right)
-    L_{z} \left(\varphi\right)
-    L_{y} \left(\psi\right)
-\end{align}
-其中：
-\begin{align}
-    L_{y} \left(\psi\right)
-    =
-    \begin{pmatrix}
-        cos\psi & 0 & -sin\psi
-        \\
-        0       & 1 & 0
-        \\
-        sin\psi & 0 & cos\psi
-    \end{pmatrix}
-\end{align}
-
-\begin{align}
-    L_{z} \left(\varphi \right)
-    =
-    \begin{pmatrix}
-        cos\varphi  & sin\varphi & 0
-        \\
-        -sin\varphi & cos\varphi & 0
-        \\
-        0           & 0          & 1
-    \end{pmatrix}
-\end{align}
-
-\begin{align}
-    L_{x} \left(\gamma\right)
-    =
-    \begin{pmatrix}
-        1 & 0          & 0
-        \\
-        0 & cos\gamma  & sin\gamma
-        \\
-        0 & -sin\gamma & cos\gamma
-    \end{pmatrix}
-\end{align}
-
-代入则有：
-\begin{align}
-    L \left(\psi , \varphi , \gamma\right)
-    =
-    \begin{pmatrix}
-        cos\varphi cos\psi                                & \sin\varphi           & -cos\varphi\sin\psi
-        \\
-        -\sin\varphi cos\psi cos\gamma+\sin\psi\sin\gamma & cos\varphi\cos\gamma  & \sin\varphi\sin\psi\cos\gamma+cos\psi\sin\gamma
-        \\
-        \sin\varphi\cos\psi\sin\gamma+\sin\psi\cos\gamma  & -cos\varphi\sin\gamma & -\sin\varphi\sin\psi\sin\gamma+cos\psi\cos\gamma
-    \end{pmatrix}
-\end{align}
-
-同时，$L^{-1} \left(\psi , \varphi , \gamma\right) = L^{T} \left(\psi , \varphi , \gamma\right)$，所以
-
-\begin{align}
-    L^{T} \left(\psi , \varphi , \gamma\right)
-    =
-    \begin{pmatrix}
-        \cos\varphi\cos\psi  & -\sin\varphi\cos\psi\cos\gamma+\sin\psi\sin\gamma & \sin\varphi\cos\psi\sin\gamma+\sin\psi\cos\gamma
-        \\
-        \sin\varphi          & \cos\varphi\cos\gamma                             & -\cos\varphi\sin\gamma
-        \\
-        -\cos\varphi\sin\psi & \sin\varphi\sin\psi\cos\gamma+\cos\psi\sin\gamma  & -\sin\varphi\sin\psi\sin\gamma+\cos\psi\cos\gamma
-    \end{pmatrix}
-\end{align}
-
-发动机推力矢量$\vec{P}$在地面坐标系$Axyz$的投影为
-
-\begin{align}
-    \begin{pmatrix}
-        P_{x} \\
-        P_{y} \\
-        P_{z}
-    \end{pmatrix}
-    =
-    L^{T} \left(\psi , \varphi , \gamma\right)
-    \begin{pmatrix}
-        P_{x1} \\
-        P_{y1} \\
-        P_{z1}
-    \end{pmatrix}
-\end{align}
-
-\noindent {\bf (2) 按照$\varphi \rightarrow \psi \rightarrow \gamma$的顺序转换}
-
-从地面坐标系$Axyz$转换为弹体坐标系$Ox_{1}y_{1}z_{2}$的坐标变换矩阵为
-\begin{align}
-    L \left(\varphi , \psi , \gamma\right)
-    =
-    L_{x} \left(\gamma\right)
-    L_{y} \left(\psi\right)
-    L_{z} \left(\varphi\right)
-\end{align}
-
-代入式$\left(4\right)$、式$\left(5\right)$、式$\left(6\right)$得到：
-\begin{align}
-    L \left(\varphi , \psi , \gamma\right)
-    =
-    \begin{pmatrix}
-        \cos\varphi\cos\psi                                 & \sin\varphi\cos\psi                                 & -\sin\varphi
-        \\
-        \sin\psi\cos\varphi\sin\gamma-\sin\varphi\cos\gamma & \sin\psi\sin\varphi\sin\gamma+\cos\varphi\cos\gamma & \cos\psi\sin\gamma
-        \\
-        \sin\psi\cos\varphi\cos\gamma+\sin\varphi\cos\gamma & \sin\psi\sin\varphi\cos\gamma-\cos\varphi\sin\gamma & \cos\psi\cos\gamma
-    \end{pmatrix}
-\end{align}
-
-同时，$L^{-1} \left(\psi , \varphi , \gamma\right) = L^{T} \left(\psi , \varphi , \gamma\right)$，所以
-
-\begin{align}
-    L^{T} \left(\psi , \varphi , \gamma\right)
-    =
-    \begin{pmatrix}
-        \cos\varphi\cos\psi  & -\sin\varphi\cos\psi\cos\gamma+\sin\psi\sin\gamma & \sin\varphi\cos\psi\sin\gamma+\sin\psi\cos\gamma
-        \\
-        \sin\varphi          & \cos\varphi\cos\gamma                             & -\cos\varphi\sin\gamma
-        \\
-        -\cos\varphi\sin\psi & \sin\varphi\sin\psi\cos\gamma+\cos\psi\sin\gamma  & -\sin\varphi\sin\psi\sin\gamma+\cos\psi\cos\gamma
-    \end{pmatrix}
-\end{align}
-
-发动机推力矢量$\vec{P}$在地面坐标系$Axyz$的投影为
-
-\begin{align}
-    \begin{pmatrix}
-        P_{x} \\
-        P_{y} \\
-        P_{z}
-    \end{pmatrix}
-    =
-    L^{T} \left(\psi , \varphi , \gamma\right)
-    \begin{pmatrix}
-        P_{x1} \\
-        P_{y1} \\
-        P_{z1}
-    \end{pmatrix}
-\end{align}
-
-\section*{\zihao{-4} 二、编程计算结果}
-
-\noindent {\bf (1) 按照$\psi \rightarrow \varphi \rightarrow \gamma$的顺序转换计算结果}
-\begin{align}
-    \begin{pmatrix}
-        P_{x} \\
-        P_{y} \\
-        P_{z}
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-        2996   \\
-        -49152 \\
-        8667
-    \end{pmatrix}
-    \left(N\right)
-\end{align}
-\noindent {\bf (2) 按照$\varphi \rightarrow \psi \rightarrow \gamma$的顺序转换}
-\begin{align}
-    \begin{pmatrix}
-        P_{x} \\
-        P_{y} \\
-        P_{z}
-    \end{pmatrix}
-    =
-    L^{T} \left(\psi , \varphi , \gamma\right)
-    \begin{pmatrix}
-        11180  \\
-        -47405 \\
-        -11305
-    \end{pmatrix}
-    \left(N\right)
-\end{align}
 
 
 \clearpage

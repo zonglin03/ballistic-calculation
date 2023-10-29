@@ -1,3 +1,7 @@
+"""""
+弹道计算程序
+"""
+
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -5,21 +9,21 @@ from matplotlib import pyplot as plt
 from matplotlib_inline import backend_inline
 backend_inline.set_matplotlib_formats('svg')
 
-plt.rcParams['font.sans-serif'] = ['SimHei'] 
+plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False 
 
 # 导弹参数
-S_lef   =   0.45
+S_ref   =   0.45
 L_ref   =   2.5
 
 # 放大系数
 K_phi = -0.6
 K_phi_dot= 0.5 * K_phi
-K_q = 6
+K_q = 5
 
 
 # 仿真时间步
-timestep = 0.01
+timestep = 0.001
 
 # 导弹状态定义
 class statu():
@@ -41,6 +45,7 @@ class statu():
         self.mass = mass
         self.alpha = 0
         self.deltaz = 0
+        self.q = 0
 
     # 显式Euler法，给定飞行高度
     def Euler(self, before, dmass):
@@ -58,9 +63,9 @@ class statu():
 
         self.alpha =  0.24 *self.deltaz
 
-        Y = (0.25 * self.alpha + 0.05* self.deltaz) * 0.5 * air(self.H) * before.V * before.V * S_lef
+        Y = (0.25 * self.alpha + 0.05* self.deltaz) * 0.5 * air(self.H) * before.V * before.V * S_ref
 
-        X = (0.005 * self.alpha * self.alpha + 0.2) * 0.5 * air(self.H) * before.V * before.V * S_lef
+        X = (0.005 * self.alpha * self.alpha + 0.2) * 0.5 * air(self.H) * before.V * before.V * S_ref
         
         self.mass = before.mass - dmass * timestep
         if dmass == 0:
@@ -79,16 +84,17 @@ class statu():
         self.H = before.H + before.V * np.sin(before.theta) * timestep
         self.mass = before.mass 
         self.r = np.sqrt((self.X - Xm)*(self.X - Xm) + (self.H - Ym)*(self.H - Ym))
-        self.q = np.arctan((self.H - Ym)/(self.X - Xm)) /3.14159*180
-        self.dq = - before.V * np.sin(before.theta - self.q)/ self.r * timestep /3.14159*180
+        
+        self.q = np.arctan(( Ym - self.H )/(Xm - self.X))
+        self.dq = - before.V * np.sin(before.theta - self.q)/ self.r
 
         self.theta = before.theta + K_q * self.dq * timestep
         
         P = 0
-
-        self.alpha = (self.mass* before.V * K_q * self.dq + self.mass * 9.8 *np.cos(self.theta))/(P +  (0.25 + 0.05 / 0.24) * 0.5 * air(self.H) * before.V * before.V * L_ref ) /3.14159*180
-
         
+
+        self.alpha = (self.mass* before.V * K_q * self.dq + self.mass * 9.8 *np.cos(self.theta))/(P +  (0.25 + 0.05/0.24) * 0.5 * air(self.H) * before.V * before.V * L_ref) /3.14159*180
+
         self.deltaz = self.alpha / 0.24
         
         if self.deltaz > 30:
@@ -96,9 +102,10 @@ class statu():
         if self.deltaz < -30:
             self.deltaz = -30
 
-        X = (0.005 * self.alpha * self.alpha + 0.2) * 0.5 * air(self.H) * before.V * before.V * S_lef
-
-        self.V = before.V + (P-np.cos(self.alpha - X))/self.mass -9.8 *np.sin(self.theta) * timestep
+        self.alpha =  0.24 *self.deltaz
+        
+        X = (0.005 * before.alpha * before.alpha + 0.2) * 0.5 * air(self.H) * before.V * before.V * S_ref
+        self.V = before.V + (P*np.cos(self.alpha*3.14159625/180) - X - self.mass*9.8*np.sin(before.theta)) /self.mass*timestep
     
 # 大气参数
 def air (High):
@@ -144,14 +151,14 @@ while statu_n[-1].X < 9100:
 while statu_n[-1].X <= 24000:
     statu_n.append(statu(statu_n[-1].Time + timestep))
     statu_n[-1].Euler(statu_n[-2],0.46)
-    #print(statu_n[-1].alpha)
+    #print(statu_n[-1].theta)
+
 
 statu_n[-1].Euler2(statu_n[-2],30000,-30000)
-
 while statu_n[-1].X <= 30000 and statu_n[-1].H > 0:
     statu_n.append(statu(statu_n[-1].Time + timestep))
     statu_n[-1].Euler2(statu_n[-2],30000,0)
-    print(statu_n[-1].deltaz)
+    #print(statu_n[-1].V)
 
 
 X_data = [n.X for n in statu_n]
@@ -175,7 +182,6 @@ plt.xlabel('Time(s)') #x_label
 plt.ylabel('$\delta z$')#y_label
 plt.ylim(-50,50)
 plt.xlim(0,200)
-
 """
 plt.figure(3)
 M_data = [n.mass for n in statu_n]

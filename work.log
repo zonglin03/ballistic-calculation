@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.4)  29 OCT 2023 17:11
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.4)  29 OCT 2023 19:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -416,8 +416,7 @@ Package ctex Warning: Command `\CTEXsetup' is deprecated.
 
 (e:/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-)
-No file work.aux.
+) (./work.aux)
 \openout1 = `work.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
@@ -516,6 +515,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 73.
 \c@lstlisting=\count325
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -601,8 +601,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
 [3]
-File: code/飞行轨迹.png Graphic file (type bmp)
-<code/飞行轨迹.png>
+File: img/飞行轨迹.png Graphic file (type bmp)
+<img/飞行轨迹.png>
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -612,12 +612,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
 [4]
-File: code/飞行高度.png Graphic file (type bmp)
-<code/飞行高度.png>
-File: code/飞行速度.png Graphic file (type bmp)
-<code/飞行速度.png>
-File: code/飞行舵偏角.png Graphic file (type bmp)
-<code/飞行舵偏角.png>
+File: img/飞行高度.png Graphic file (type bmp)
+<img/飞行高度.png>
+File: img/飞行速度.png Graphic file (type bmp)
+<img/飞行速度.png>
+File: img/飞行舵偏角.png Graphic file (type bmp)
+<img/飞行舵偏角.png>
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -627,8 +627,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
 [5]
-File: code/飞行弹道倾角.png Graphic file (type bmp)
-<code/飞行弹道倾角.png>
+File: img/飞行弹道倾角.png Graphic file (type bmp)
+<img/飞行弹道倾角.png>
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -638,6 +638,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
 [6]
+File: img/飞行轨迹2.png Graphic file (type bmp)
+<img/飞行轨迹2.png>
+File: img/飞行舵偏角2.png Graphic file (type bmp)
+<img/飞行舵偏角2.png>
+File: img/飞行轨迹3.png Graphic file (type bmp)
+<img/飞行轨迹3.png>
+File: img/飞行舵偏角3.png Graphic file (type bmp)
+<img/飞行舵偏角3.png>
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -645,9 +654,38 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[7] (e:/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[7]
+File: img/飞行轨迹4.png Graphic file (type bmp)
+<img/飞行轨迹4.png>
+File: img/飞行舵偏角4.png Graphic file (type bmp)
+<img/飞行舵偏角4.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 335--338
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 335--338
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[8] (e:/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) (./code/main.py
+)
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.53937> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 345.
+ (./code/main.py
+
+LaTeX Font Warning: Font shape `TU/FangSong(0)/b/n' undefined
+(Font)              using `TU/FangSong(0)/m/n' instead on input line 2.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -655,17 +693,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[8
+[9
 
 ]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 12.64723pt, for example:
-(fancyhdr)                \setlength{\headheight}{12.64723pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
-
-[9]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 12.64723pt, for example:
@@ -689,7 +719,89 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[12])
+[12]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[13]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[14])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[15] (./code/comparison.py
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[16
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[17]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[18]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[19]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[20]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[21])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.64723pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.64723pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
+
+[22]
 
 Package caption Warning: Unused \captionsetup[table] on input line 27.
 See the caption package documentation for explanation.
@@ -701,18 +813,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-0.64723pt}.
 
-[13] (./work.aux)
+[23] (./work.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 13144 strings out of 476179
- 308064 string characters out of 5815278
- 1181817 words of memory out of 5000000
- 33702 multiletter control sequences out of 15000+600000
- 474639 words of font info for 83 fonts, out of 8000000 for 9000
+ 13279 strings out of 476179
+ 311755 string characters out of 5815278
+ 1206817 words of memory out of 5000000
+ 33823 multiletter control sequences out of 15000+600000
+ 474655 words of font info for 85 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 89i,17n,97p,1278b,1981s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,17n,97p,1278b,1990s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on work.pdf (13 pages).
+Output written on work.pdf (23 pages).

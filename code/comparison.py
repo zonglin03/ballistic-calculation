@@ -1,5 +1,6 @@
-"""""
+"""
 弹道计算程序
+分析放大系数的影响
 """
 
 import numpy as np
@@ -15,12 +16,6 @@ plt.rcParams['axes.unicode_minus'] = False
 # 导弹参数
 S_ref   =   0.45
 L_ref   =   2.5
-
-# 放大系数
-K_phi = - 0.5
-K_phi_dot= 0.6* K_phi
-K_q = 5
-
 
 # 仿真时间步
 timestep = 0.01
@@ -45,10 +40,10 @@ class statu():
         self.mass = mass
         self.alpha = 0
         self.deltaz = 0
-        self.dq = 0
+        self.q = 0
 
     # 显式Euler法，给定飞行高度
-    def Euler(self, before, dmass):
+    def Euler(self, before, dmass,K_phi, K_phi_dot):
         self.Time = before.Time + timestep
         
         self.X = before.X + before.V * np.cos(before.theta) * timestep
@@ -77,7 +72,7 @@ class statu():
         self.theta = before.theta + (P*np.sin(self.alpha*3.14159625/180) + Y - self.mass*9.8*np.cos(before.theta)) /self.mass/self.V*timestep
 
     # 比例导引法，给定目标位置
-    def Euler2(self, before, Xm, Ym):
+    def Euler2(self, before, Xm, Ym, K_q):
         self.Time = before.Time + timestep
         
         self.X = before.X + before.V * np.cos(before.theta) * timestep
@@ -106,35 +101,6 @@ class statu():
         
         X = (0.005 * self.alpha * self.alpha + 0.2) * 0.5 * air(self.H) * before.V * before.V * S_ref
         self.V = before.V + (P*np.cos(before.alpha*3.14159625/180) - X - self.mass*9.8*np.sin(before.theta)) /self.mass*timestep
-
-    def Euler3(self, before, Xm, Ym):
-        self.Time = before.Time + timestep
-        
-        self.X = before.X + before.V * np.cos(before.theta) * timestep
-        self.H = before.H + before.V * np.sin(before.theta) * timestep
-        self.mass = before.mass 
-        
-        self.r = np.sqrt((self.X - Xm)*(self.X - Xm) + (self.H - Ym)*(self.H - Ym))
-        
-        self.dtheta = - K_q * before.V * np.sin(before.theta - np.arctan(( self.H - Ym)/(self.X - Xm)))/ self.r
-
-        self.theta = before.theta + self.dtheta * timestep
-        
-        P = 0
-
-        self.alpha = (self.mass* before.V * self.dtheta + self.mass * 9.8 * np.cos(self.theta))/(P +  (0.25 + 0.05/0.24) * 0.5 * air(self.H) * before.V * before.V * S_ref) /3.14159*180
-
-        self.deltaz = self.alpha / 0.24
-        
-        if self.deltaz > 30:
-            self.deltaz = 30
-        if self.deltaz < -30:
-            self.deltaz = -30
-
-        self.alpha =  0.24 * self.deltaz
-        
-        X = (0.005 * self.alpha * self.alpha + 0.2) * 0.5 * air(self.H) * before.V * before.V * S_ref
-        self.V = before.V + ((P*np.cos(self.alpha*3.14159/180) - X)/self.mass-9.8*np.sin(self.theta)) *timestep
     
 # 大气参数
 def air (High):
@@ -162,88 +128,156 @@ def High_goal_dot(X):
     else:
         return 0
 
+def calculate(K_phi ,K_phi_dot, K_q):
 
-# 飞行初始状态
-statu_n = [statu(0, 0, 7000, 250, 0, 320)]
-statu_n[0].alpha = 0
-statu_n[0].deltaz = 0
+    # 飞行初始状态
+    statu_n = [statu(0, 0, 7000, 250, 0, 320)]
+    statu_n[0].alpha = 0
+    statu_n[0].deltaz = 0
 
+    # 第一阶段
+    while statu_n[-1].X < 9100:
+        statu_n.append(statu(statu_n[-1].Time + timestep))
+        statu_n[-1].Euler(statu_n[-2],0,K_phi ,K_phi_dot )
+
+    # 第二阶段
+    while statu_n[-1].X <= 24000:
+        statu_n.append(statu(statu_n[-1].Time + timestep))
+        statu_n[-1].Euler(statu_n[-2],0.46,K_phi ,K_phi_dot)
+
+
+    # 第三阶段
+    while statu_n[-1].X <= 30000 and statu_n[-1].H > 0:
+        statu_n.append(statu(statu_n[-1].Time + timestep))
+        statu_n[-1].Euler2(statu_n[-2],30000,0,K_q)
+
+    return statu_n
+
+# 飞行方案
 X_goal = np.arange(0,24000,10)
 H_goal = [High_goal(i) for i in X_goal]
-plt.plot(X_goal,H_goal, 'b--', alpha=0.5, linewidth=1, label='飞行方案高度')
 
-# 第一阶段
-while statu_n[-1].X < 9100:
-    statu_n.append(statu(statu_n[-1].Time + timestep))
-    statu_n[-1].Euler(statu_n[-2],0)
-    #print(statu_n[-1].alpha)
-
-# 第二阶段
-while statu_n[-1].X <= 24000:
-    statu_n.append(statu(statu_n[-1].Time + timestep))
-    statu_n[-1].Euler(statu_n[-2],0.46)
-    #print(statu_n[-1].theta)
-
-# 第三阶段
-while statu_n[-1].X <= 30000 and statu_n[-1].H > 0:
-    statu_n.append(statu(statu_n[-1].Time + timestep))
-    statu_n[-1].Euler2(statu_n[-2],30000,0)
-    #print(statu_n[-1].V)
-
+# 放大系数
+statu_1=calculate(-0.2,-0.5,2)
+statu_2=calculate(-0.8,-0.5,2)
 
 # 绘图
-X_data = [n.X for n in statu_n]
-H_data = [n.H for n in statu_n]
-plt.plot(X_data,H_data, 'r-.', alpha=0.5, linewidth=1, label='实际飞行高度')
-plt.title("弹道铅垂平面轨迹")
+
+## 第一个放大系数
+X_data_1 = [n.X for n in statu_1]
+H_data_1 = [n.H for n in statu_1]
+X_data_2 = [n.X for n in statu_2]
+H_data_2 = [n.H for n in statu_2]
+
+plt.plot(X_goal,H_goal, 'c--', alpha=0.5, linewidth=1, label='飞行方案高度')
+
+plt.plot(X_data_1,H_data_1, 'r-.', alpha=0.5, linewidth=1, label=r'$k_\varphi=-0.2$')
+plt.plot(X_data_2,H_data_2, 'b-.', alpha=0.5, linewidth=1, label=r'$k_\varphi=-0.8$')
+
+plt.title("弹道铅垂平面轨迹第一阶段对比")
 plt.legend()  #显示上面的label
 plt.xlabel('X(m)') #x_label
 plt.ylabel('H(m)')#y_label
-plt.ylim(0,8000)
-plt.xlim(0,30000) #仅设置y轴坐标范围
-plt.savefig('img/飞行轨迹.png', dpi=300)
+plt.ylim(3000,7000)
+plt.xlim(0,10000) #仅设置y轴坐标范围
+plt.savefig('img/飞行轨迹2.png', dpi=300)
 plt.clf()
 
-T_data = [n.Time for n in statu_n]
-deltaz_data = [n.deltaz for n in statu_n]
-plt.plot(T_data,deltaz_data, 'r-.', alpha=0.5, linewidth=1, label='舵偏角$\delta z$')
+
+T_data_1 = [n.Time for n in statu_1]
+T_data_2 = [n.Time for n in statu_2]
+deltaz_data_1 = [n.deltaz for n in statu_1]
+deltaz_data_2 = [n.deltaz for n in statu_2]
+
+plt.plot(T_data_1,deltaz_data_1, 'r-.', alpha=0.5, linewidth=1, label=r'$k_\varphi=-0.2$')
+plt.plot(T_data_2,deltaz_data_2, 'b-.', alpha=0.5, linewidth=1, label=r'$k_\varphi=-0.8$')
+
 plt.title("飞行方案舵偏角")
 plt.legend()  #显示上面的label
 plt.xlabel('Time(s)') #x_label
 plt.ylabel('$\delta z$')#y_label
 plt.ylim(-50,50)
 plt.xlim(0,200)
-plt.savefig('img/飞行舵偏角.png', dpi=300)
+plt.savefig('img/飞行舵偏角2.png', dpi=300)
 plt.clf()
 
-plt.plot(T_data,H_data, 'r-.', alpha=0.5, linewidth=1, label='实际飞行速度V')
-plt.title("飞行高度的时间变化曲线")
+## 第二个放大系数
+statu_3 = calculate(-0.6,-0.3,3)
+statu_4 = calculate(-0.6,-0.5,3)
+
+X_data_3 = [n.X for n in statu_3]
+H_data_3 = [n.H for n in statu_3]
+X_data_4 = [n.X for n in statu_4]
+H_data_4 = [n.H for n in statu_4]
+
+plt.plot(X_goal,H_goal, 'c--', alpha=0.5, linewidth=1, label='飞行方案高度')
+
+plt.plot(X_data_3,H_data_3, 'r-.', alpha=0.5, linewidth=1, label=r'$\dot{k}_\varphi=-0.3$')
+plt.plot(X_data_4,H_data_4, 'b-.', alpha=0.5, linewidth=1, label=r'$\dot{k}_\varphi=-0.5$')
+
+plt.title("弹道铅垂平面轨迹阶跃处对比")
 plt.legend()  #显示上面的label
-plt.xlabel('Time(s)') #x_label
+plt.xlabel('X(m)') #x_label
 plt.ylabel('H(m)')#y_label
-plt.ylim(0,7000)
-plt.xlim(0,200)
-plt.savefig('img/飞行高度.png', dpi=300)
+plt.ylim(2800,3200)
+plt.xlim(8500,11000) #仅设置y轴坐标范围
+plt.savefig('img/飞行轨迹3.png', dpi=300)
 plt.clf()
 
-V_data = [n.V for n in statu_n]
-plt.plot(T_data,V_data, 'r-.', alpha=0.5, linewidth=1, label='实际飞行速度V')
-plt.title("飞行速度的时间变化曲线")
-plt.legend()  #显示上面的label
-plt.xlabel('Time(s)') #x_label
-plt.ylabel('速度V')#y_label
-plt.ylim(100,250)
-plt.xlim(0,200)
-plt.savefig('img/飞行速度.png', dpi=300)
-plt.clf()
+T_data_3 = [n.Time for n in statu_3]
+T_data_4 = [n.Time for n in statu_4]
+deltaz_data_3 = [n.deltaz for n in statu_3]
+deltaz_data_4 = [n.deltaz for n in statu_4]
 
-theta_data = [n.theta*180/3.14159 for n in statu_n]
-plt.plot(T_data,theta_data, 'r-.', alpha=0.5, linewidth=1, label=r'舵偏角$\theta$')
-plt.title("飞行方案弹道倾角")
+plt.plot(T_data_3,deltaz_data_3, 'r-.', alpha=0.5, linewidth=1, label=r'$\dot{k}_\varphi=-0.3$')
+plt.plot(T_data_4,deltaz_data_4, 'b-.', alpha=0.5, linewidth=1, label=r'$\dot{k}_\varphi=-0.5$')
+
+plt.title("飞行方案舵偏角")
 plt.legend()  #显示上面的label
 plt.xlabel('Time(s)') #x_label
-plt.ylabel(r'$\theta$')#y_label
+plt.ylabel('$\delta z$')#y_label
 plt.ylim(-50,50)
 plt.xlim(0,200)
-plt.savefig('img/飞行弹道倾角.png', dpi=300)
+plt.savefig('img/飞行舵偏角3.png', dpi=300)
+plt.clf()
+
+
+## 第三个放大系数
+statu_5 = calculate(-0.6, -0.5, 3)
+statu_6 = calculate(-0.6, -0.5, 6)
+
+X_data_5 = [n.X for n in statu_5]
+H_data_5 = [n.H for n in statu_5]
+X_data_6 = [n.X for n in statu_6]
+H_data_6 = [n.H for n in statu_6]
+
+plt.plot(X_goal,H_goal, 'c--', alpha=0.5, linewidth=1, label='飞行方案高度')
+
+plt.plot(X_data_5,H_data_5, 'r-.', alpha=0.5, linewidth=1, label=r'$k_3=3$')
+plt.plot(X_data_6,H_data_6, 'b-.', alpha=0.5, linewidth=1, label=r'$k_3=5$')
+
+
+plt.title("弹道铅垂平面第三阶段轨迹对比")
+plt.legend()  #显示上面的label
+plt.xlabel('X(m)') #x_label
+plt.ylabel('H(m)')#y_label
+plt.ylim(0,3500)
+plt.xlim(24000,30000) #仅设置y轴坐标范围
+plt.savefig('img/飞行轨迹4.png', dpi=300)
+plt.clf()
+
+T_data_5 = [n.Time for n in statu_5]
+T_data_6 = [n.Time for n in statu_6]
+deltaz_data_5 = [n.deltaz for n in statu_5]
+deltaz_data_6 = [n.deltaz for n in statu_6]
+
+plt.plot(T_data_5,deltaz_data_5, 'r-.', alpha=0.5, linewidth=1, label=r'$k_3=3$')
+plt.plot(T_data_6,deltaz_data_6, 'b-.', alpha=0.5, linewidth=1, label=r'$k_3=5$')
+plt.title("飞行方案舵偏角")
+plt.legend()  #显示上面的label
+plt.xlabel('Time(s)') #x_label
+plt.ylabel('$\delta z$')#y_label
+plt.ylim(-50,50)
+plt.xlim(0,200)
+plt.savefig('img/飞行舵偏角4.png', dpi=300)
 plt.clf()

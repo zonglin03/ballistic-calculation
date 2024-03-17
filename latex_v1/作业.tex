@@ -1,136 +1,28 @@
-%%
-%% This is file `yanputhesis-sample.tex',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% yanputhesis.dtx  (with options: `sample')
-%% Copyright (C) 2022 by Shangkun Shen
-%% 
-%% It may be distributed and/or modified under the conditions of the LaTeX
-%% Project Public License, either version 1.3b of this license or (at your
-%% option) any later version. The latest version of this license is in
-%%     https://www.latex-project.org/lppl.txt
-%% and version 1.3b or later is part of all distributions of LaTeX version
-%% 2005/12/01 or later.
-%%=============================================================================%
-%% 设置论文格式（学位、盲评、Adobe 字体）
-%%-----------------------------------------------------------------------------%
-%% 博士、正常版本、不使用 Adobe 字体
-%% \documentclass[lang=chs, degree=phd, blindreview=false, adobe=false]{yanputhesis}
-%% 博士、盲评版本、不使用 Adobe 字体
-%% \documentclass[lang=chs, degree=phd, blindreview=true, adobe=false]{yanputhesis}
-%% 博士、正常版本、强制使用 Windows 系统字体
-%% \documentclass[lang=chs, degree=phd, blindreview=false, winfonts=true]{yanputhesis}
-%% 硕士、正常版本、不使用 Adobe 字体
-%% \documentclass[lang=chs, degree=master, blindreview=false, adobe=false]{yanputhesis}
-%% 硕士、盲评版本、不使用 Adobe 字体
-\documentclass[lang=chs, degree=master, blindreview=true, adobe=false]{yanputhesis}
+\documentclass[lang=chs, degree=kcsj, blindreview=false, winfonts=true]{NWPUthesis}
+
+%% degree：博士:phd，硕士:master，本科：bachelor，课程设计:kcsj
 %%=============================================================================%
 %% 导言区：请自行添加额外宏包
 %%-----------------------------------------------------------------------------%
-\usepackage{blindtext}                                      % 生成无意义文本
-\usepackage{metalogo}                                       % 软件标志
-\usepackage[binary-units=true]{siunitx}                     % 物理量单位
-\usepackage{amsmath}                                        % 基础数学库
-%%=============================================================================%
-%% 参考文献（也可以是独立文件）
-%%-----------------------------------------------------------------------------%
-\begin{filecontents}{reference.bib}
-@software{NWPUThesisLaTeXTemplate,
-  title     = {Yet Another {{\LaTeX}} Template for NPU Thesis},
-  author    = {Shangkun Shen and Zhihe Wang and Jiduo Zhang and Weijia Zhang},
-  month     = {11},
-  year      = {2019},
-  publisher = {Zenodo},
-  journal   = {GitHub repository},
-  doi       = {10.5281/zenodo.4159248},
-  url       = {https://doi.org/10.5281/zenodo.4159248}
-}
+\usepackage{blindtext}	% 生成无意义文本
+\usepackage{metalogo}	% 软件标志
+\usepackage[binary-units=true]{siunitx}	% 物理量单位
+\usepackage{amsmath}	% 基础数学库
 
-@book{knuth1986the,
-  title     = {The {{\TeX}}book},
-  author    = {Knuth, Donald E},
-  publisher = {Addison-Wesley},
-  year      = {1986}
-}
-
-@book{lamport1989latex,
-  title     = {{{\LaTeX}}: a document preparation system},
-  author    = {Lamport, Leslie},
-  publisher = {Addison-Wesley Professional},
-  year      = {1989}
-}
-
-@article{szegedy2015going,
-  title   = {Going deeper with convolutions},
-  author  = {Szegedy, Christian and Liu, Wei and Jia, Yangqing and
-             Sermanet, Pierre and Reed, Scott E and Anguelov, Dragomir and
-             Erhan, Dumitru and Vanhoucke, Vincent and Rabinovich, Andrew},
-  journal = {Computer Vision and Pattern Recognition},
-  pages   = {1--9},
-  year    = {2015}
-}
-
-@software{MathSymbolsinLaTeXbypolossk,
-  title     = {Math Symbols in {{\LaTeX}}},
-  author    = {Shangkun Shen},
-  year      = {2017},
-  month     = {10},
-  publisher = {Zenodo},
-  journal   = {GitHub repository},
-  doi       = {10.5281/zenodo.4120375},
-  url       = {https://doi.org/10.5281/zenodo.4120375}
-}
-
-@article{chen2014maiyuan,
-  title   = {脉源三支 强强融合——西北工业大学},
-  author  = {{陈家忠}},
-  journal = {电子技术与软件工程},
-  number  = {9},
-  pages   = {15--16},
-  year    = {2014}
-}
-
-@article{shen2021peridynamic,
-  title     = {Peridynamic modeling with energy-based surface correction for
-               fracture simulation of random porous materials},
-  journal   = {Theoretical and Applied Fracture Mechanics},
-  volume    = {114},
-  pages     = {102987},
-  year      = {2021},
-  issn      = {0167-8442},
-  author    = {Shangkun Shen and Zihao Yang and Fei Han and Junzhi Cui and
-               Jieqiong Zhang},
-  publisher = {Elsevier}
-}
-
-@inproceedings{chen2018autonomous,
-  title        = {Autonomous vehicle testing and validation platform: Integrated
-                  simulation system with hardware in the loop},
-  author       = {Chen, Yu and Chen, Shitao and Zhang, Tangyike and
-                  Zhang, Songyi and Zheng, Nanning},
-  booktitle    = {2018 IEEE Intelligent Vehicles Symposium (IV)},
-  pages        = {949--956},
-  year         = {2018},
-  organization = {IEEE}
-}
-\end{filecontents}
 %%=============================================================================%
 %% 基本信息录入
 %%-----------------------------------------------------------------------------%
-\title{基于 LaTeX 排版的 \\ 西北工业大学论文模板}{          % 中英文标题
-    Yet Another Thesis Template of \\ Northwestern Polytechnical University
-}                                                           % 请自行断行
-\author{\blindreview{张三丰}}{\blindreview{Sanfeng Zhang}}  % 姓名（添加盲评标记）
-\date{2022年6月}{Jun 2022}                                  % 答辩日期
-\school{数学与统计学院}{School of Mathematics and Statistics}% 学院
-\major{数学}{Philosophy in Mathematics}                     % 专业 博士请添加 Ph
-\advisor{\blindreview{李四海}}{\blindreview{Sihai Li}}      % 导师（添加盲评标记）
-\studentnumber{2016123456}                                  % 学号
-\funding{本研究得到玄学基金（编号23336666）资助。}{         % 基金资助
-    The present work is supported by Funding of Metaphysics %
-    (Project No：23336666).}                                %
+\subject{航天飞行动力学课程设计}{}
+\title{基于Python语言的 \\ 一级半运载火箭弹道计算}{	% 中英文标题
+	Yet Another Thesis Template of \\ Northwestern Polytechnical University
+}	% 请自行断行
+\author{\blindreview{李宗霖}}{\blindreview{Zonglin Li}}  % 姓名（添加盲评标记）
+\date{2024年3月}{Mar 2024}	% 答辩日期
+\school{教育实验学院}{Honors College}% 学院
+\major{飞行器动力工程}{Flight Vehicle Propulsion Engineering}	% 专业 博士请添加 Ph
+\advisor{\blindreview{闫晓东}}{\blindreview{Xiaodong Yan}}	% 导师（添加盲评标记）
+\studentnumber{2021300045}	% 学号
+
 %%=============================================================================%
 %% 文档开始
 %%-----------------------------------------------------------------------------%
@@ -138,43 +30,23 @@
 %%-----------------------------------------------------------------------------%
 %% 总前言，包含封皮页、中英文标题、中英文摘要、目录
 %%-----------------------------------------------------------------------------%
-\frontmatter                                                % 前言部分
-\maketitle                                                  % 封皮页及标题页
+\frontmatter	% 前言部分
+\maketitle	% 封皮页及标题页
+
+
 %%-----------------------------------------------------------------------------%
-\makeCommitteePage{                                         % 学位论文评阅人
-    \reviewers{\fullBlindReview{5}}                         % 和答辩委员会名单
-    \committee{2023 年 x 月 y 日}{
-        \defenseChair{赵钱孙}{教授}{西北工业大学}
-        \committeeMember{周吴郑}{教授}{西北工业大学}
-        \committeeMember{冯陈褚}{教授}{西北工业大学}
-        \committeeMember{蒋沈韩}{教授}{西北工业大学}
-        \committeeMember{朱秦尤}{教授}{西北工业大学}
-        \committeeMember{何吕施}{教授}{西北工业大学}
-        \committeeMember{孔曹严}{教授}{西北工业大学}
-        \defenseSecretary{金魏陶}{教授}{西北工业大学}
-    }
-}
-%%-----------------------------------------------------------------------------%
-\begin{abstract}                                            % 中文摘要开始
+\begin{abstract}	% 中文摘要开始
     这是在西北工业大学本科毕业设计、硕博研究生毕业论文格式的要求下的一份 LaTeX
     文档类模板。使用者无需额外修改格式控制细节，直接在所发布的样例基础上，修改章
-    节标题，撰写内容，即可完成毕业设计论文任务。            %
-    \begin{keywords}                                        % 中文关键词开始
-        学位论文 \sep 模板 \sep \LaTeX                      %
-    \end{keywords}                                          % 中文关键词结束
-\end{abstract}                                              % 中文摘要结束
+    节标题，撰写内容，即可完成毕业设计论文任务。	%
+    \begin{keywords}	% 中文关键词开始
+        学位论文 \sep Python \sep \LaTeX	%
+    \end{keywords}	% 中文关键词结束
+\end{abstract}	% 中文摘要结束
+
 %%-----------------------------------------------------------------------------%
-\begin{engabstract}                                         % 英文摘要开始
-    \noindent \blindtext                                    %
-    \begin{engkeywords}                                     % 英文关键词开始
-        thesis \ensep template \ensep \LaTeX                %
-    \end{engkeywords}                                       % 英文关键词结束
-\end{engabstract}                                           % 英文摘要结束
-%%-----------------------------------------------------------------------------%
-\tableofcontents                                            % 目录
-\listoffigures                                              % 图目录（学校未做要求）
-\listoftables                                               % 表目录（学校未做要求）
-\printnomenclature                                          % 符号表（学校未做要求）
+\tableofcontents	% 目录
+\printnomenclature	% 符号表（学校未做要求）
 %%-----------------------------------------------------------------------------%
 \mainmatter
 \sDefault
@@ -282,46 +154,46 @@ $$a_0+a_1+a_2=\sqrt{233}$$
 \end{enumerate}
 
 \begin{lstlisting}[language={TeX}, label={code:makeBlindReviewerCommitteePage},
-    caption={盲评样例 makeBlindReviewerCommitteePage.tex}]
+	caption={盲评样例 makeBlindReviewerCommitteePage.tex}]
 \makeCommitteePage{
-    \reviewers{\fullBlindReview{5}}
-    \committee{2023 年 x 月 y 日}{
-        \defenseChair{赵钱孙}{教授}{西北工业大学}
-        \committeeMember{周吴郑}{教授}{西北工业大学}
-        \committeeMember{冯陈褚}{教授}{西北工业大学}
-        \committeeMember{蒋沈韩}{教授}{西北工业大学}
-        \committeeMember{朱秦尤}{教授}{西北工业大学}
-        \committeeMember{何吕施}{教授}{西北工业大学}
-        \committeeMember{孔曹严}{教授}{西北工业大学}
-        \defenseSecretary{金魏陶}{教授}{西北工业大学}
-    }
+	\reviewers{\fullBlindReview{5}}
+	\committee{2023 年 x 月 y 日}{
+	\defenseChair{赵钱孙}{教授}{西北工业大学}
+	\committeeMember{周吴郑}{教授}{西北工业大学}
+	\committeeMember{冯陈褚}{教授}{西北工业大学}
+	\committeeMember{蒋沈韩}{教授}{西北工业大学}
+	\committeeMember{朱秦尤}{教授}{西北工业大学}
+	\committeeMember{何吕施}{教授}{西北工业大学}
+	\committeeMember{孔曹严}{教授}{西北工业大学}
+	\defenseSecretary{金魏陶}{教授}{西北工业大学}
+	}
 }
 \end{lstlisting}
 
 \begin{lstlisting}[language={TeX}, label={code:makeOpenReviewerCommitteePage},
-    caption={明审样例 makeOpenReviewerCommitteePage.tex}]
+	caption={明审样例 makeOpenReviewerCommitteePage.tex}]
 \makeCommitteePage{
-    \reviewers{
-        \expert{周吴郑}{教授}{西北工业大学}
-        \expert{冯陈褚}{教授}{西北工业大学}
-        \expert{蒋沈韩}{教授}{西北工业大学}
-        \expert{朱秦尤}{教授}{西北工业大学}
-        \expert{何吕施}{教授}{西北工业大学}
-    }
-    \committee{2023 年 x 月 y 日}{
-        \defenseChair{赵钱孙}{教授}{西北工业大学}
-        \committeeMember{周吴郑}{教授}{西北工业大学}
-        \committeeMember{冯陈褚}{教授}{西北工业大学}
-        \committeeMember{蒋沈韩}{教授}{西北工业大学}
-        \committeeMember{朱秦尤}{教授}{西北工业大学}
-        \committeeMember{何吕施}{教授}{西北工业大学}
-        \committeeMember{孔曹严}{教授}{西北工业大学}
-        \defenseSecretary{金魏陶}{教授}{西北工业大学}
-    }
+	\reviewers{
+	\expert{周吴郑}{教授}{西北工业大学}
+	\expert{冯陈褚}{教授}{西北工业大学}
+	\expert{蒋沈韩}{教授}{西北工业大学}
+	\expert{朱秦尤}{教授}{西北工业大学}
+	\expert{何吕施}{教授}{西北工业大学}
+	}
+	\committee{2023 年 x 月 y 日}{
+	\defenseChair{赵钱孙}{教授}{西北工业大学}
+	\committeeMember{周吴郑}{教授}{西北工业大学}
+	\committeeMember{冯陈褚}{教授}{西北工业大学}
+	\committeeMember{蒋沈韩}{教授}{西北工业大学}
+	\committeeMember{朱秦尤}{教授}{西北工业大学}
+	\committeeMember{何吕施}{教授}{西北工业大学}
+	\committeeMember{孔曹严}{教授}{西北工业大学}
+	\defenseSecretary{金魏陶}{教授}{西北工业大学}
+	}
 }
 \end{lstlisting}
 
-\cleardoublepage
+ 
 
 \chapter{插入图表以及如何引用}
 \chaptermark{插入图表以及如何引用}
@@ -372,7 +244,7 @@ $$a_0+a_1+a_2=\sqrt{233}$$
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[scale=0.2]{poster.png}
+    \includegraphics[scale=0.8]{../img/飞行高度.png}
     \caption{
         这里是个普通的标题
     }
@@ -385,12 +257,12 @@ $$a_0+a_1+a_2=\sqrt{233}$$
         \centering
         \begin{subfigure}[t]{0.47\textwidth}
             \centering
-            \includegraphics[scale=0.1]{poster.png}
+            \includegraphics[scale=0.4]{../img/飞行高度.png}
             \caption{\label{subfig:example2-subfig1}}
         \end{subfigure}
         \begin{subfigure}[t]{0.47\textwidth}
             \centering
-            \includegraphics[scale=0.1]{poster.png}
+            \includegraphics[scale=0.4]{../img/飞行高度.png}
             \caption{\label{subfig:example2-subfig2}}
         \end{subfigure}
     \end{minipage}
@@ -403,15 +275,15 @@ $$a_0+a_1+a_2=\sqrt{233}$$
 这里给出一个 Hello World 的样例，如\autoref{code:hello-world} 所示。
 
 \begin{lstlisting}[language={C++}, label={code:hello-world},
-    caption={Hello World.cpp}]
+	caption={Hello World.cpp}]
 #include <iostream>
 using namespace std;
 
 int main()
 {
-    // output "Hello World!"
-    cout << "Hello World!" << endl;
-    return 0;
+	// output "Hello World!"
+	cout << "Hello World!" << endl;
+	return 0;
 }
 \end{lstlisting}
 
@@ -429,13 +301,13 @@ int main()
 制。本文推荐除在不影响最终成文的结果这一前提下，为保持文档的美观与易读，请自行选
 择合适的编写方式。
 
-\cleardoublepage
+ 
 %%=============================================================================%
 %% 参考文献以及附录
 %%-----------------------------------------------------------------------------%
-%% \bibliographystyle{nputhesis}                               % GB/T 7714-2015 格式
-\bibliographystyle{nputhesis-noslash}                       % 参考文献改进格式
-\bibliography{reference}                                    % 参考文献
+%% \bibliographystyle{nputhesis}	% GB/T 7714-2015 格式
+\bibliographystyle{nputhesis-noslash}	% 参考文献改进格式
+\bibliography{reference}	% 参考文献
 \appendix
 \chapter{一份说明 顺便测试英文标题 Title}
 
@@ -457,7 +329,7 @@ int main()
     S = \pi r^2
 \end{equation}
 
-\cleardoublepage
+ 
 
 \chapter{另一份说明}
 
@@ -474,7 +346,15 @@ int main()
     V_{\text{sphere}} = \frac43 \pi r^3
 \end{equation}
 
-\cleardoublepage
+
+\chapter{title}
+\lstinputlisting[
+    language = Python, 
+    label = {code:makeBlindReviewerCommitteePage}, 
+    caption={代码 main.py}
+]{../code/main.py}
+
+ 
 %%=============================================================================%
 %% 文档附页部分（致谢、参加科研情况、知识产权与原创性声明）
 %%-----------------------------------------------------------------------------%
@@ -483,24 +363,7 @@ int main()
 \begin{acknowledgements}                                    % 致谢开始
     感谢我的老师和我的朋友们……
 \end{acknowledgements}                                      % 致谢结束
-%%-----------------------------------------------------------------------------%
-\begin{accomplishments}                                     % 参加科研情况开始
-    [1] ...
-\end{accomplishments}                                       % 参加科研情况结束
-%%-----------------------------------------------------------------------------%
-\makestatement                                              % 知识产权与原创性声明
-%%=============================================================================%
 %% 文档结束
 %%-----------------------------------------------------------------------------%
 \end{document}
 %%=============================================================================%
-
-
-%% 
-%% This work consists of the file  yanputhesis.dtx
-%% and the derived files           yanputhesis.ins,
-%%                                 yanputhesis.pdf,
-%%                                 yanputhesis.cls.
-%% 
-%%
-%% End of file `yanputhesis-sample.tex'.

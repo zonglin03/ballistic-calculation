@@ -1,9 +1,12 @@
-"""""
-弹道计算程序
+"""
+    一级半运载火箭弹道计算
 """
 
+
+###############  环境准备  ###############
 import numpy as np
 from matplotlib import pyplot as plt
+from scipy.interpolate import interp2d, interp1d,CloughTocher2DInterpolator
 
 # 展示高清图
 from matplotlib_inline import backend_inline
@@ -12,19 +15,65 @@ backend_inline.set_matplotlib_formats('svg')
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False 
 
+# 忽略提示
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
+
+###############  定义数值  ###############
 # 导弹参数
-S_ref   =   0.45
-L_ref   =   2.5
+S_ref   =   19.6
+
+## 质量
+# 构型：芯一级＋2个大助推器＋2个小助推器
+m_0 = 645000 # 总质量
+m0 = 6600 # 有效载荷质量
+
+# 芯一级
+m1_0 = 173000   # 芯一级起飞质量
+m1_1 = 19500    # 芯一级结构质量 
+qm_1 = 334    # 芯一级秒流量
+
+# 大助推器
+m2_0 = 158000   
+m2_1 = 14500    
+qm_2 = 820
+
+# 小助推器(单个助推器)：
+m3_0 = 72700
+m3_1 = 7100
+qm_3 = 410
+
+# 整流罩
+m4 = 4000
+
+# 经纬度，单位度
+latitude_0 = 19.6  # 维度
+longitude_0 = 111   # 经度
+
+# 攻角参数
+alpha_max = 0.65 #单位弧度
+alpha_costant = 0.1 # 转弯段参数
+
+# 时间
+t1 = 15 # 垂直起飞段结束，进入转弯段
+t2 = 120    # 120s整流罩分离。
+t3 = 160    # 160秒两小助推关机分离，大助推外侧关机（推力减半，秒流量减半）
+t4 = 190 # 190秒两大助推内侧关机分离
+t5 = 459.58 # 芯一级关机
+
+# 目标轨道
+Target_orbital_altitude = 500e3
+Target_orbital_inclination = 60 #单位 度
+#轨道高度偏差1km，轨道倾角偏差0.5°
 
 # 放大系数
-K_phi = - 0.5
-K_phi_dot= 0.6* K_phi
-K_q = 5
-
+K_phi = 1
+K_alpha = 1
 
 # 仿真时间步
 timestep = 0.01
-
+###############  类的定义  ###############
 # 导弹状态定义
 class statu():
     __slot__=['Time','X','H','V','theta','mass','alpha','deltaz']
@@ -135,7 +184,9 @@ class statu():
         
         X = (0.005 * self.alpha * self.alpha + 0.2) * 0.5 * air(self.H) * before.V * before.V * S_ref
         self.V = before.V + ((P*np.cos(self.alpha*3.14159/180) - X)/self.mass-9.8*np.sin(self.theta)) *timestep
-    
+
+
+###############  部分函数  ###############
 # 大气参数
 def air (High):
     rho0 =1.2495
@@ -143,6 +194,7 @@ def air (High):
     Temp = T0 - 0.0065*High
     rho = rho0 * np.exp(4.25588*np.log(Temp / T0))
     return rho
+
 
 # 飞行方案
 def High_goal(X):
@@ -162,6 +214,68 @@ def High_goal_dot(X):
     else:
         return 0
 
+# 读入数据
+def read_file(file_path):
+    # 读取文档中的数据
+    with open(file_path, 'r', encoding='UTF-8') as f:
+        lines = f.readlines()
+
+    # 提取关键数据
+    data = []
+    for line in lines:
+        items = line.strip().split()
+        if items:
+            data.append(items)
+    return data
+
+def alpha_cornering( time ):
+    b = np.exp(alpha_constant*(t1-time))
+    return 4* alpha_max * b *(b-1)
+
+
+###############  插值函数  ###############
+# cx插值数据预处理
+data = read_file('data/cx.txt')
+cx_high_numbers = np.array(data[1], dtype=float)
+cx_mach_numbers = np.array(data[3], dtype=float)
+cx_values = [row for row in np.array(data[5:], dtype=float)]
+# kind参数决定了插值的类型，'linear'代表线性插值
+cx_interp_func = interp2d(cx_high_numbers, cx_mach_numbers, cx_values, kind='linear')
+# print(cx_interp_func(0.1,0.1),cn_alpha_interp_func(0.3))
+
+# cx插值数据预处理
+data = read_file('data/cn_alpha.txt')
+cn_alpha_mach = np.array(data[1], dtype=float)
+cn_alpha_values = [row for row in np.array(data[3:], dtype=float)]
+# 允许外插
+cn_alpha_interp_func = interp1d(cn_alpha_mach, cn_alpha_values, kind='linear', fill_value='extrapolate')
+
+## 芯一级推力P_1 插值预处理
+data = read_file('data/P_1.txt')
+P_1_high = np.array(data[1], dtype=float)
+P_1_values = [row for row in np.array(data[3:], dtype=float)]
+
+P_1_interp_func = interp1d(P_1_high, P_1_values, kind='linear', fill_value='extrapolate')
+
+## 两大助推器总推力P_2 插值预处理
+data = read_file('data/P_2.txt')
+P_2_high = np.array(data[1], dtype=float)
+P_2_values = [row for row in np.array(data[3:], dtype=float)]
+
+P_2_interp_func = interp1d(P_2_high, P_2_values, kind='linear', fill_value='extrapolate')
+print(P_2_interp_func(20))
+
+## 两小助推器总推力P_3 插值预处理
+data = read_file('data/P_1.txt')
+P_3_high = np.array(data[1], dtype=float)
+P_3_values = [row for row in np.array(data[3:], dtype=float)]
+
+P_3_interp_func = interp1d(P_3_high, P_3_values, kind='linear', fill_value='extrapolate')
+print(P_3_interp_func(20))
+
+###############  计算初始化  ###############
+# 发射方位角
+A_0 = 
 
 # 飞行初始状态
 statu_n = [statu(0, 0, 7000, 250, 0, 320)]
@@ -172,25 +286,15 @@ X_goal = np.arange(0,24000,10)
 H_goal = [High_goal(i) for i in X_goal]
 plt.plot(X_goal,H_goal, 'b--', alpha=0.5, linewidth=1, label='飞行方案高度')
 
+# 方位角
+###############  计算开始  ###############
 # 第一阶段
-while statu_n[-1].X < 9100:
+while statu_n[-1].Time < 15:
     statu_n.append(statu(statu_n[-1].Time + timestep))
     statu_n[-1].Euler(statu_n[-2],0)
-    #print(statu_n[-1].alpha)
-
-# 第二阶段
-while statu_n[-1].X <= 24000:
-    statu_n.append(statu(statu_n[-1].Time + timestep))
-    statu_n[-1].Euler(statu_n[-2],0.46)
-    #print(statu_n[-1].theta)
-
-# 第三阶段
-while statu_n[-1].X <= 30000 and statu_n[-1].H > 0:
-    statu_n.append(statu(statu_n[-1].Time + timestep))
-    statu_n[-1].Euler2(statu_n[-2],30000,0)
-    #print(statu_n[-1].V)
 
 
+###############  绘图可视化  ###############
 # 绘图
 X_data = [n.X for n in statu_n]
 H_data = [n.H for n in statu_n]

@@ -1,26 +1,4 @@
-\documentclass[UTF8]{ctexart}
-\newcommand{\mycmdB}[1]{{\heiti #1}}
-\renewcommand{\normalsize}{\fontsize{12}{12}\fangsong}
-\usepackage{listings}
-\usepackage{xcolor}
-\usepackage{amsmath}
-\usepackage{graphicx} 
-\usepackage{float} 
-\usepackage{indentfirst}
-\usepackage{longtable}
-\usepackage{fancyhdr}
-\usepackage[a4paper, left=2.5cm, right=2.5cm, top=3cm, bottom=2cm]{geometry}
-\usepackage{matlab-prettifier}
-\usepackage{latexcolors}
-
-\setlength{\parindent}{2em} %2em代表首行缩进2个字符
-
-% 页眉页脚设置
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{2021300045}
-\chead{李宗霖}
-\rhead{第\thepage 页}
+\documentclass[forprint]{NWPUBachelor}
 
 % 去除图注冒号
 \usepackage{caption}
@@ -72,11 +50,28 @@
 
 \begin{document}
 
-\begin{center}
-    {\zihao{-2} \bf 航天飞行动力学}\\
-    {\zihao{3} 第三次作业\ ——\ 飞行方案设计}
+\miji{ }                                      % 密级. 没有就空着.
+\StudentNumber{2021300045} % 填写自己的学号
 
-\end{center}
+\title{西北工业大学结课论文~\LaTeX~模板}
+\Etitle{A \LaTeX~Thesis Template for Wuhan University} % 英文题目
+\author{李宗霖}                            % 作者名字
+\Eauthor{HUANG Zhenghua}            %作者英文名
+\Csupervisor{胡宝清\quad 教授}        %指导教师中文名、职称
+\Esupervisor{Prof.~HU Bao Qing}     %指导教师英文名、职称
+\Cmajor{航空航天大类}                  % 专业中文名
+\Emajor{Information and Computing Science}% 专业英文名
+\Cschoolname{教育实验学院}          % 学院名
+\Eschoolname{School of Mathematics and Statistics} %学院英文名. 不确定的话, 请看一下自己学院的网页上是怎么写的. 别搞错了!
+\date{二〇一六年五月}                    % 日期, 要注意和英文日期一致!!
+\Edate{May, 2016}                       % 英文封面日期
+
+%-----------------------------------------------------------------------------
+\pdfbookmark[0]{封面}{title}         % 封面页加到 pdf 书签
+\maketitle
+\frontmatter
+\pagenumbering{Roman}              % 正文之前的页码用大写罗马字母编号.
+%-----------------------------------------------------------------------------
 
 \section*{\zihao{-4} 一、题目}
 \noindent {\heiti 1.导弹参数：}
@@ -126,6 +121,7 @@
 \section{公式推导}
 
 \subsection{发射方位角}
+
 考虑球面三角形ADLC，D是升交点，L是发射点，C点位于赤道上及通过发射点的子午线上.
 轨道倾角i，发射方位角$A_0$，发射场地心纬度$\phi_0$。
 由球面三角学，有
